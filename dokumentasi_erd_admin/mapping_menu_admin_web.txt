@@ -1,0 +1,81 @@
+PENGELOMPOKAN TABEL PER MENU ADMIN WEB (MODUL ADMINISTRASI WEB)
+==============================================================
+
+Berikut adalah pemetaan valid antara menu pada halaman Admin Web dengan tabel-tabel database yang digunakan, berdasarkan referensi file migrasi dan struktur ERD:
+
+0. Manajemen Hak Akses (Role)
+-----------------------------
+- Tabel Utama: user_grup (Role/Grup)
+- Tabel Terkait: user (Pengguna)
+- Deskripsi: Menentukan siapa yang bisa mengakses modul "Admin Web" dan menu mana saja yang boleh dikelola (misal: Redaksi hanya bisa akses Artikel, Administrator bisa akses semua).
+
+1. Menu: Artikel
+----------------
+- Tabel Utama: artikel
+- Tabel Pendukung:
+    * kategori (untuk klasifikasi jenis artikel)
+    * user (untuk identifikasi penulis/admin)
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola konten berita, pengumuman, dan halaman statis.
+
+2. Menu: Slider
+---------------
+- Tabel Utama: artikel (Data difilter berdasarkan kolom `slider` = 1)
+- Tabel Pendukung:
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola gambar dan teks yang tampil di banner utama (carousel) halaman depan.
+
+3. Menu: Widget
+---------------
+- Tabel Utama: widget
+- Tabel Pendukung:
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola komponen sidebar seperti statistik, peta, aparatur desa, dan widget kustom.
+
+4. Menu: Menu (Statis/Web)
+--------------------------
+- Tabel Utama: menu
+- Tabel Pendukung:
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola struktur navigasi (menu atas/samping) pada website desa.
+
+5. Menu: Komentar
+-----------------
+- Tabel Utama: komentar
+- Tabel Pendukung:
+    * artikel (untuk relasi komentar ke konten tertentu)
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Moderasi dan pengelolaan komentar yang masuk dari pengunjung website.
+
+6. Menu: Galeri
+---------------
+- Tabel Utama: gambar_gallery
+- Tabel Pendukung:
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola album foto dan dokumentasi kegiatan desa.
+
+7. Menu: Media Sosial
+---------------------
+- Tabel Utama: media_sosial
+- Tabel Pendukung:
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola tautan ke akun resmi media sosial desa (FB, IG, Twitter, dll).
+
+8. Menu: Teks Berjalan (Running Text)
+-------------------------------------
+- Tabel Utama: teks_berjalan
+- Tabel Pendukung:
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola pesan singkat yang bergerak di halaman depan website.
+
+9. Menu: Kategori (Manajemen Kategori)
+--------------------------------------
+- Tabel Utama: kategori
+- Tabel Pendukung:
+    * config (untuk identitas desa/config_id)
+- Deskripsi: Mengelola master data kategori yang akan digunakan oleh menu Artikel.
+
+--------------------------------------------------------------
+Catatan Penting:
+- Semua tabel dalam Modul Administrasi Web wajib memiliki relasi ke tabel 'config' melalui kolom 'config_id' untuk mendukung sistem multi-desa/identitas.
+- Tabel 'user' menjadi referensi krusial untuk audit trail (siapa yang membuat konten) terutama pada menu Artikel.

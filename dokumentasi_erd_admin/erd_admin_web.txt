@@ -1,0 +1,131 @@
+STRUKTUR DATA ATRIBUT MENU ADMIN WEB (MODUL ADMINISTRASI WEB)
+==========================================================
+
+Berikut adalah daftar tabel dan atribut (kolom) yang digunakan dalam menu Admin Web di OpenSID, berdasarkan file migrasi database:
+
+0. Tabel Referensi (Core)
+--------------------------
+A. Tabel: config (Identitas Desa)
+- id (Integer, Primary Key): ID unik desa.
+- nama_desa (String 100): Nama desa.
+- kode_desa (String 10): Kode desa.
+- alamat_kantor (String 200): Alamat kantor desa.
+
+B. Tabel: user (Pengguna/Admin)
+- id (MediumInt, Primary Key): ID unik pengguna.
+- config_id (Integer): Relasi ke tabel config.
+- username (String 100): Username login.
+- nama (String 50): Nama lengkap pengguna.
+- id_grup (Integer): Relasi ke tabel user_grup (menentukan role/akses).
+
+C. Tabel: user_grup (Role/Grup Pengguna)
+- id (Integer, Primary Key): ID unik grup/role.
+- config_id (Integer): Relasi ke tabel config.
+- nama (String 20): Nama role (misal: Administrator, Redaksi, dll).
+- slug (String): Identifier unik untuk role.
+
+1. Tabel: artikel (Menu: Artikel & Slider)
+------------------------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik artikel.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- gambar (String 200, Nullable): Nama file gambar utama artikel.
+- isi (Text): Konten/isi lengkap artikel.
+- enabled (Integer, Default 1): Status aktif artikel (1: Aktif, 2: Tidak Aktif).
+- tgl_upload (Timestamp): Waktu artikel diunggah.
+- id_kategori (Integer): ID kategori artikel (relasi ke tabel kategori).
+- id_user (Integer): ID pengguna yang menulis artikel.
+- judul (String 200): Judul artikel.
+- headline (Boolean, Default false): Status artikel utama/headline.
+- gambar1, gambar2, gambar3 (String 200, Nullable): Gambar tambahan.
+- dokumen (String 400, Nullable): Nama file dokumen lampiran.
+- link_dokumen (String 200, Nullable): Tautan luar untuk dokumen.
+- boleh_komentar (Boolean, Default true): Izin untuk memberikan komentar.
+- slug (String 200, Nullable): URL ramah SEO untuk artikel.
+- hit (Integer, Default 0): Jumlah artikel dilihat/dibaca.
+- slider (Boolean, Default false): Status apakah artikel ditampilkan di slider utama.
+
+2. Tabel: widget (Menu: Widget)
+-------------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik widget.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- isi (Text, Nullable): Konten widget (untuk jenis widget statis).
+- enabled (Integer, Nullable): Status aktif widget.
+- judul (String 100, Nullable): Judul widget.
+- jenis_widget (TinyInteger, Default 3): Tipe widget (1: Sistem, 2: Statis, 3: Dinamis).
+- urut (Integer, Nullable): Urutan tampilan widget di sidebar.
+- form_admin (String 100, Nullable): Nama file form admin jika ada.
+- setting (Text, Nullable): Pengaturan tambahan widget dalam format JSON/serialized.
+- foto (String, Nullable): Path foto/ikon widget.
+
+3. Tabel: menu (Menu: Menu)
+---------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik menu.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- nama (String 50): Nama label menu yang tampil.
+- link (String 500): Tautan tujuan menu.
+- parrent (Integer, Default 0): ID menu induk (untuk sub-menu).
+- link_tipe (Boolean, Default false): Tipe tautan (internal/eksternal).
+- enabled (Boolean, Default true): Status aktif menu.
+- urut (Integer, Nullable): Urutan tampilan menu.
+
+4. Tabel: komentar (Menu: Komentar)
+-----------------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik komentar.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- id_artikel (Integer): ID artikel yang dikomentari.
+- owner (String 50): Nama pengirim komentar.
+- email (String 50, Nullable): Alamat email pengirim.
+- subjek (TinyText, Nullable): Subjek komentar.
+- komentar (Text): Isi komentar.
+- tgl_upload (Timestamp): Waktu komentar dikirim.
+- status (Boolean, Nullable): Status moderasi (1: Disetujui, 0: Belum Disetujui).
+- tipe (Boolean, Nullable): Tipe komentar.
+- no_hp (String 15, Nullable): Nomor HP pengirim.
+- updated_at (Timestamp): Waktu terakhir diperbarui.
+- is_archived (Boolean, Default false): Status apakah komentar diarsipkan.
+- permohonan (Text, Nullable): Data permohonan jika komentar terkait layanan.
+
+5. Tabel: gambar_gallery (Menu: Galeri)
+---------------------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik galeri/album.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- parrent (Integer, Default 0): ID album induk (0 untuk album utama, >0 untuk foto di dalam album).
+- gambar (String 200): Nama file gambar.
+- nama (String 50): Nama atau judul foto/album.
+- enabled (Integer, Default 1): Status aktif.
+- tgl_upload (Timestamp): Waktu diunggah.
+- tipe (Integer, Default 0): Tipe galeri.
+- slider (Boolean, Nullable): Apakah ditampilkan di slider galeri.
+- urut (Integer, Nullable): Urutan tampilan.
+
+6. Tabel: media_sosial (Menu: Media Sosial)
+-------------------------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik media sosial.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- gambar (Text): Path atau nama file ikon media sosial.
+- link (Text, Nullable): Tautan ke profil media sosial.
+- nama (String 100): Nama media sosial (misal: Facebook, Instagram).
+- tipe (Boolean, Default true): Tipe media sosial.
+- enabled (Integer): Status aktif media sosial.
+
+7. Tabel: teks_berjalan (Menu: Teks Berjalan)
+---------------------------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik teks berjalan.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- teks (Text, Nullable): Isi teks pengumuman.
+- urut (Integer, Nullable): Urutan tampilan.
+- status (Boolean, Default false): Status aktif.
+- tipe (TinyInteger, Default 1): Tipe sumber teks (1: Manual, 2: Artikel Terbaru, dll).
+- tautan (String 150, Nullable): Tautan jika teks diklik.
+- judul_tautan (String 150, Nullable): Judul atau label tautan.
+
+8. Tabel: kategori (Menu: Kategori)
+-----------------------------------
+- id (Integer, Primary Key, Auto Increment): ID unik kategori.
+- config_id (Integer, Nullable): ID konfigurasi desa.
+- kategori (String 100): Nama kategori artikel.
+- tipe (Integer, Default 1): Tipe kategori.
+- urut (TinyInteger): Urutan tampilan kategori.
+- enabled (TinyInteger): Status aktif kategori.
+- parrent (TinyInteger, Default 0): ID kategori induk (untuk sub-kategori).
+- slug (String 100, Nullable): URL ramah SEO untuk kategori.

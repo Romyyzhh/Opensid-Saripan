@@ -1,0 +1,154 @@
+// DBML - Database Markup Language
+// Use this code in https://dbdiagram.io to visualize the ERD
+
+Table config {
+  id integer [primary key, increment]
+  app_key varchar(100) [unique]
+  nama_desa varchar(100)
+  kode_desa varchar(10) [unique]
+  kode_pos integer
+  nama_kecamatan varchar(100)
+  nama_kabupaten varchar(100)
+  nama_propinsi varchar(100)
+  logo varchar(100)
+  lat varchar(20)
+  lng varchar(20)
+  alamat_kantor varchar(200)
+  email_desa varchar(50)
+  telepon varchar(50)
+  website varchar(100)
+}
+
+Table user {
+  id mediumint [primary key, increment]
+  config_id integer [ref: > config.id]
+  username varchar(100)
+  password varchar(100)
+  id_grup integer [ref: > user_grup.id]
+  email varchar(100)
+  nama varchar(50)
+  active boolean
+}
+
+Table user_grup {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  nama varchar(20)
+  slug varchar(255)
+  jenis tinyint [default: 1]
+}
+
+Table artikel {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  id_kategori integer [ref: > kategori.id]
+  id_user integer [ref: > user.id]
+  judul varchar(200)
+  isi text
+  gambar varchar(200)
+  enabled integer [default: 1]
+  tgl_upload timestamp
+  headline boolean [default: false]
+  gambar1 varchar(200)
+  gambar2 varchar(200)
+  gambar3 varchar(200)
+  dokumen varchar(400)
+  link_dokumen varchar(200)
+  boleh_komentar boolean [default: true]
+  slug varchar(200)
+  hit integer [default: 0]
+  slider boolean [default: false]
+}
+
+Table kategori {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  kategori varchar(100)
+  tipe integer [default: 1]
+  enabled integer [default: 1]
+  urut integer
+  parrent integer [default: 0]
+  slug varchar(100)
+}
+
+Table widget {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  isi text
+  enabled integer
+  judul varchar(100)
+  jenis_widget tinyint [default: 3]
+  urut integer
+  form_admin varchar(100)
+  setting text
+  foto varchar(255)
+}
+
+Table menu {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  nama varchar(50)
+  link varchar(500)
+  parrent integer [ref: > menu.id]
+  link_tipe boolean [default: false]
+  enabled boolean [default: true]
+  urut integer
+}
+
+Table komentar {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  id_artikel integer [ref: > artikel.id]
+  owner varchar(50)
+  email varchar(50)
+  subjek tinytext
+  komentar text
+  tgl_upload timestamp
+  status boolean
+  tipe boolean
+  no_hp varchar(15)
+  updated_at timestamp
+  is_archived boolean [default: false]
+  permohonan text
+}
+
+Table gambar_gallery {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  parrent integer [ref: > gambar_gallery.id]
+  gambar varchar(200)
+  nama varchar(50)
+  enabled integer [default: 1]
+  tgl_upload timestamp
+  tipe integer [default: 0]
+  slider boolean
+  urut integer
+}
+
+Table media_sosial {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  gambar text
+  link text
+  nama varchar(100)
+  tipe boolean [default: true]
+  enabled integer
+}
+
+Table teks_berjalan {
+  id integer [primary key, increment]
+  config_id integer [ref: > config.id]
+  teks text
+  urut integer
+  status boolean [default: false]
+  tipe tinyint [default: 1]
+  tautan varchar(150)
+  judul_tautan varchar(150)
+}
+
+// Relationships summary:
+// - All tables reference 'config' via 'config_id'
+// - 'artikel' references 'kategori' and 'user'
+// - 'komentar' references 'artikel'
+// - 'menu' has self-reference (parent-child)
+// - 'gambar_gallery' has self-reference (album-photo)
