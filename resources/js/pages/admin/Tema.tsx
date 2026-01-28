@@ -1,8 +1,30 @@
 import AdminLayout from '@/layouts/admin/AdminLayout';
 import { Head } from '@inertiajs/react';
 import { Palette, Upload, Save } from 'lucide-react';
+import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 export default function Tema() {
+    const [themeSettings, setThemeSettings] = useState({
+        primaryColor: '#10b981',
+        secondaryColor: '#14b8a6',
+        accentColor: '#3b82f6',
+        logo: null as File | null,
+        favicon: null as File | null,
+    });
+
+    const handleChange = (key: string, value: string) => {
+        setThemeSettings({ ...themeSettings, [key]: value });
+    };
+
+    const handleSave = () => {
+        // Simulate saving
+        alert('Pengaturan tema berhasil disimpan!');
+        console.log('Saved settings:', themeSettings);
+    };
+
     return (
         <AdminLayout title="Tema" currentRoute="/admin/tema">
             <Head title="Tema - Admin" />
@@ -22,14 +44,14 @@ export default function Tema() {
                         </h3>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Logo Website</label>
+                                <Label className="block text-sm font-medium text-gray-700 mb-2">Logo Website</Label>
                                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-emerald-500 transition-colors cursor-pointer">
                                     <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
                                     <p className="text-sm text-gray-600">Klik untuk upload logo</p>
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Favicon</label>
+                                <Label className="block text-sm font-medium text-gray-700 mb-2">Favicon</Label>
                                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-emerald-500 transition-colors cursor-pointer">
                                     <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
                                     <p className="text-sm text-gray-600">Klik untuk upload favicon</p>
@@ -46,24 +68,54 @@ export default function Tema() {
                         </h3>
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Warna Utama</label>
+                                <Label className="block text-sm font-medium text-gray-700 mb-2">Warna Utama</Label>
                                 <div className="flex items-center gap-3">
-                                    <input type="color" defaultValue="#10b981" className="w-16 h-10 rounded border border-gray-300" />
-                                    <input type="text" defaultValue="#10b981" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg" />
+                                    <input
+                                        type="color"
+                                        value={themeSettings.primaryColor}
+                                        onChange={(e) => handleChange('primaryColor', e.target.value)}
+                                        className="w-16 h-10 rounded border border-gray-300 cursor-pointer"
+                                    />
+                                    <Input
+                                        type="text"
+                                        value={themeSettings.primaryColor}
+                                        onChange={(e) => handleChange('primaryColor', e.target.value)}
+                                        className="flex-1"
+                                    />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Warna Sekunder</label>
+                                <Label className="block text-sm font-medium text-gray-700 mb-2">Warna Sekunder</Label>
                                 <div className="flex items-center gap-3">
-                                    <input type="color" defaultValue="#14b8a6" className="w-16 h-10 rounded border border-gray-300" />
-                                    <input type="text" defaultValue="#14b8a6" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg" />
+                                    <input
+                                        type="color"
+                                        value={themeSettings.secondaryColor}
+                                        onChange={(e) => handleChange('secondaryColor', e.target.value)}
+                                        className="w-16 h-10 rounded border border-gray-300 cursor-pointer"
+                                    />
+                                    <Input
+                                        type="text"
+                                        value={themeSettings.secondaryColor}
+                                        onChange={(e) => handleChange('secondaryColor', e.target.value)}
+                                        className="flex-1"
+                                    />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Warna Aksen</label>
+                                <Label className="block text-sm font-medium text-gray-700 mb-2">Warna Aksen</Label>
                                 <div className="flex items-center gap-3">
-                                    <input type="color" defaultValue="#3b82f6" className="w-16 h-10 rounded border border-gray-300" />
-                                    <input type="text" defaultValue="#3b82f6" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg" />
+                                    <input
+                                        type="color"
+                                        value={themeSettings.accentColor}
+                                        onChange={(e) => handleChange('accentColor', e.target.value)}
+                                        className="w-16 h-10 rounded border border-gray-300 cursor-pointer"
+                                    />
+                                    <Input
+                                        type="text"
+                                        value={themeSettings.accentColor}
+                                        onChange={(e) => handleChange('accentColor', e.target.value)}
+                                        className="flex-1"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -71,10 +123,10 @@ export default function Tema() {
                 </div>
 
                 <div className="flex justify-end">
-                    <button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium flex items-center gap-2">
-                        <Save className="w-5 h-5" />
+                    <Button onClick={handleSave} className="bg-emerald-600 hover:bg-emerald-700">
+                        <Save className="w-5 h-5 mr-2" />
                         Simpan Perubahan
-                    </button>
+                    </Button>
                 </div>
             </div>
         </AdminLayout>
