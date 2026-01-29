@@ -46,6 +46,9 @@ return new class extends Migration
             if (!Schema::hasColumn('users', 'username')) {
                 $table->string('username', 100)->nullable()->unique();
             }
+            if (!Schema::hasColumn('users', 'role')) {
+                $table->string('role')->default('user')->after('email');
+            }
         });
 
         // 8. Kategori

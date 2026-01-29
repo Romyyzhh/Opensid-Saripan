@@ -11,18 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artikels', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('content');
-            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
-            $table->string('category')->nullable();
-            $table->enum('status', ['draft', 'published'])->default('draft');
-            $table->timestamp('published_at')->nullable();
-            $table->integer('views')->default(0);
-            $table->timestamps();
-        });
+        // Deprecated: schema consolidated into 2026_01_28_043339_create_admin_web_schema.php
+        // Keep as no-op to avoid creating duplicate/overlapping tables. If 'artikels'
+        // table already exists, skip.
+        if (Schema::hasTable('artikels')) {
+            return;
+        }
     }
 
     /**

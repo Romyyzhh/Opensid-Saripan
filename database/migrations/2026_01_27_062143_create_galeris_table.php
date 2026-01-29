@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galeris', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('image_path');
-            $table->string('thumbnail_path')->nullable();
-            $table->string('category')->nullable();
-            $table->timestamps();
-        });
+        // Deprecated: schema consolidated into 2026_01_28_043339_create_admin_web_schema.php
+        // Keep as no-op to avoid creating duplicate/overlapping tables. If 'galeris'
+        // table already exists, skip.
+        if (Schema::hasTable('galeris')) {
+            return;
+        }
     }
 
     /**

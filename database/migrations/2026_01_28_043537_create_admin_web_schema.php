@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_web_schema', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        // Placeholder migration — consolidated schema lives in
+        // 2026_01_28_043339_create_admin_web_schema.php. Keep as no-op.
+        return;
     }
 
     /**
