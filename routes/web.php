@@ -25,6 +25,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('galeri', GaleriController::class);
     Route::resource('widget', \App\Http\Controllers\Admin\WidgetController::class);
     Route::resource('menu', \App\Http\Controllers\Admin\MenuController::class);
+    Route::resource('kategori', \App\Http\Controllers\Admin\KategoriController::class);
+    Route::resource('user-grup', \App\Http\Controllers\Admin\UserGrupController::class);
     Route::resource('sinergi-program', \App\Http\Controllers\Admin\SinergiProgramController::class);
     Route::resource('komentar', \App\Http\Controllers\Admin\KomentarController::class);
     Route::get('tema', [\App\Http\Controllers\Admin\TemaController::class, 'index'])->name('tema.index');

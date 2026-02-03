@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Artikel;
 
 class ArtikelController extends Controller
 {
@@ -13,7 +14,41 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        return Inertia::render('admin/Artikel');
+        $articles = Artikel::leftJoin('kategori', 'artikel.id_kategori', '=', 'kategori.id')
+            ->select([
+                'artikel.id',
+                'artikel.judul as title',
+                'artikel.slug',
+                'artikel.id_kategori',
+                'artikel.id_user',
+                'artikel.tgl_upload',
+                'artikel.hit',
+                'artikel.enabled',
+                'artikel.headline',
+                'kategori.kategori as category',
+            ])
+            ->orderByDesc('artikel.tgl_upload')
+            ->paginate(15)
+            ->through(function ($a) {
+                $date = null;
+                if (!empty($a->tgl_upload)) {
+                    $date = \Illuminate\Support\Carbon::parse($a->tgl_upload)->toDateString();
+                }
+
+                return [
+                    'id' => $a->id,
+                    'title' => $a->title,
+                    'category' => $a->category ?? null,
+                    'category_id' => $a->id_kategori,
+                    'status' => $a->enabled ? 'published' : 'draft',
+                    'date' => $date,
+                    'views' => $a->hit,
+                ];
+            });
+
+        return Inertia::render('admin/Artikel', [
+            'articles' => $articles,
+        ]);
     }
 
     /**
@@ -29,7 +64,9 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: Implement gallery upload logic
+        // Handled by StoreArtikelRequest
+        // placeholder to satisfy method signature
+        // Implementation will be added by store method.
     }
 
     /**
@@ -57,7 +94,7 @@ class ArtikelController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // TODO: Implement gallery update logic
+        // Placeholder for update logic
     }
 
     /**
@@ -65,6 +102,6 @@ class ArtikelController extends Controller
      */
     public function destroy(string $id)
     {
-        // TODO: Implement gallery deletion logic
+        // Placeholder for destroy logic
     }
 }

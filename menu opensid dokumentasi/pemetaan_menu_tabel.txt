@@ -1,0 +1,60 @@
+PEMETAAN MENU KE TABEL DATABASE (OPEN SID)
+========================================
+
+Dokumentasi ini merinci tabel-tabel mana saja yang digunakan oleh menu-menu utama di Admin Web OpenSID.
+
+I. MENU INFO DESA
+- Wilayah Administratif : tweb_wil_clusterdesa
+- Identitas Desa       : config
+- Pemerintah Desa      : pamong
+- Lembaga Desa         : lembaga
+
+II. MENU KEPENDUDUKAN
+- Penduduk             : tweb_penduduk, tweb_penduduk_agama, tweb_penduduk_pendidikan, tweb_penduduk_pekerjaan, tweb_penduduk_sex, tweb_penduduk_status, tweb_penduduk_umur
+- Keluarga             : tweb_keluarga
+- Rumah Tangga         : tweb_rtm
+- Kelompok             : kelompok, kelompok_anggota, kelompok_master
+- Suplemen             : suplemen, suplemen_terdata
+
+III. MENU LAYANAN SURAT
+- Format Surat         : tweb_surat_format
+- Cetak Surat          : log_surat (untuk riwayat), permohonan_surat
+- Klasifikasi Surat    : tweb_surat_klasifikasi
+
+IV. MENU SEKRETARIAT
+- Dokumen / Informasi  : dokumen, dokumen_hidup
+- Inventaris           : inventaris_asset, inventaris_gedung, inventaris_jalan, inventaris_kontruksi, inventaris_peralatan, inventaris_tanah
+
+V. MENU KEUANGAN
+- Master Keuangan      : keuangan_master
+- Anggaran             : keuangan_ta_anggaran, keuangan_ta_anggaran_rinci
+- SPJ / STS            : keuangan_ta_spj, keuangan_ta_sts, keuangan_ta_tbp
+- Manual               : keuangan_manual_ref_bidang, keuangan_manual_ref_rek2, keuangan_manual_ref_rek3, keuangan_manual_rinci
+
+VI. MENU ADMIN WEB
+- Konten               : artikel, kategori, komentar
+- Media                : gambar_gallery, video
+- Navigasi             : menu, widget, teks_berjalan, slider
+- Media Sosial         : media_sosial
+
+VII. MENU PENGATURAN
+- Sistem               : setting_modul, setting_aplikasi
+- Keamanan             : user, user_grup, grup_akses
+- Aktivitas            : log_activity
+
+VIII. MENU LAINNYA
+- Analisis             : analisis_master, analisis_indikator, analisis_kategori_indikator, analisis_klasifikasi, analisis_parameter, analisis_partisipasi, analisis_periode, analisis_respon, analisis_respon_hasil
+- Bantuan              : program_bantuan, program_bantuan_peserta
+- Pembangunan          : pembangunan, pembangunan_dokumentasi
+- Pemetaan             : area, garis, point (lokasi), gis_simbol
+- Hubung Warga         : inbox, outbox, sent_items, fcm_token
+- Buku Tamu            : buku_tamu, buku_kepuasan, buku_pertanyaan, buku_keperluan
+
+----------------------------------------
+Catatan:
+1. Banyak tabel menggunakan prefix 'tweb_' yang merupakan struktur warisan OpenSID/SID.
+2. Sistem multi-tenant menggunakan kolom 'config_id' di hampir semua tabel utama.
+3. Tabel 'log_activity' mencatat hampir semua aktivitas di menu-menu di atas.
+
+Tanggal: 2026-02-03
+Sumber: Query live database 'opensid' (SHOW TABLES) dan setting_modul.

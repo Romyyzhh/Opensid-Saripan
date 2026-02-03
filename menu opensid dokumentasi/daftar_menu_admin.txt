@@ -1,0 +1,125 @@
+DOKUMENTASI MENU ADMIN OPENSID (SETELAH LOGIN)
+==============================================
+
+Dokumentasi ini berisi daftar menu utama dan sub-menu yang muncul di dashboard admin OpenSID setelah login, beserta pemetaan tabel database yang digunakan oleh masing-masing menu.
+
+1. INFO DESA
+   - Wilayah Administratif -> tweb_wil_clusterdesa
+   - Identitas Desa       -> config
+   - Pemerintah Desa      -> pamong
+   - Status Desa          -> (Data referensi internal/API)
+   - Lembaga Desa         -> lembaga
+
+2. KEPENDUDUKAN
+   - Penduduk             -> tweb_penduduk
+   - Keluarga             -> tweb_keluarga
+   - Rumah Tangga         -> tweb_rtm
+   - Kelompok             -> kelompok, kelompok_anggota
+   - Data Suplemen        -> suplemen, suplemen_terdata
+   - Calon Pemilih        -> (Query dari tweb_penduduk)
+
+3. STATISTIK
+   - Statistik Keluarga   -> tweb_keluarga
+   - Statistik Penduduk   -> tweb_penduduk
+   - Laporan Bulanan      -> (Log data penduduk)
+
+4. KESEHATAN
+   - Pendataan (COVID19)  -> covid19
+   - Vaksin               -> covid19_vaksin
+   - Pemantauan           -> covid19_pantau
+   - Stunting             -> (Data kesehatan terkait balita)
+
+5. KEHADIRAN
+   - Jam Kerja            -> kehadiran_jam_kerja
+   - Hari Libur           -> kehadiran_hari_libur
+   - Pengaduan            -> kehadiran_pengaduan
+   - Rekapitulasi         -> kehadiran_perangkat_desa
+
+6. LAYANAN SURAT
+   - Pengaturan Surat     -> tweb_surat_format
+   - Cetak Surat          -> (Proses generate dokumen)
+   - Arsip Layanan        -> log_surat
+   - Panduan              -> (Dokumentasi internal)
+
+7. SEKRETARIAT
+   - Informasi Publik     -> dokumen
+   - Inventaris           -> inventaris_asset, inventaris_tanah, dll.
+   - Klasifikasi Surat    -> tweb_surat_klasifikasi
+
+8. BUKU ADMINISTRASI DESA
+   - Administrasi Umum    -> (Gabungan tabel sekretariat)
+   - Administrasi Penduduk-> (Gabungan tabel kependudukan)
+   - Administrasi Pembangunan -> (Gabungan tabel pembangunan)
+   - Arsip Desa           -> dokumen
+
+9. KEUANGAN
+   - Laporan              -> keuangan_ta_spj, keuangan_ta_sts
+   - Input Data           -> keuangan_manual_rinci
+   - Laporan APBDes       -> keuangan_ta_anggaran
+
+10. ANALISIS
+    - Master Analisis     -> analisis_master
+    - Indikator           -> analisis_indikator
+    - Klasifikasi         -> analisis_klasifikasi
+
+11. BANTUAN
+    - Daftar Program      -> program_bantuan
+    - Peserta Bantuan     -> program_bantuan_peserta
+
+12. PERTANAHAN
+    - Data Persil         -> persil
+    - Peta Pertanahan     -> (Data spasial/GIS)
+
+13. PEMBANGUNAN
+    - Daftar Pembangunan  -> pembangunan
+    - Dokumentasi         -> pembangunan_dokumentasi
+
+14. LAPAK
+    - Daftar Produk       -> lapak_produk
+    - Pesanan             -> lapak_pesanan
+
+15. PENGADUAN
+    - Daftar Pengaduan    -> pengaduan
+
+16. PEMETAAN
+    - Area                -> area
+    - Garis               -> garis
+    - Lokasi              -> point
+
+17. HUBUNG WARGA
+    - Kotak Pesan         -> inbox, outbox
+    - SMS Blast           -> (Integration/Sent items)
+
+18. PENGATURAN
+    - Modul               -> setting_modul
+    - Aplikasi            -> setting_aplikasi
+    - Pengguna            -> user, user_grup
+    - Database            -> (System maintenance)
+
+19. ADMIN WEB
+    - Artikel             -> artikel
+    - Kategori            -> kategori
+    - Komentar            -> komentar
+    - Galeri              -> gambar_gallery
+    - Media Sosial        -> media_sosial
+    - Widget              -> widget
+    - Menu                -> menu
+    - Slider              -> (Data gambar slider)
+
+20. LAYANAN MANDIRI
+    - Kotak Pesan         -> inbox (mandiri)
+    - Pendaftar           -> penduduk_mandiri
+
+21. ANJUNGAN
+    - Daftar Anjungan     -> anjungan
+    - Menu                -> anjungan_menu
+
+22. BUKU TAMU
+    - Data Tamu           -> buku_tamu
+    - Data Kepuasan       -> buku_kepuasan
+
+----------------------------------------------
+Total Menu Utama: 22
+Total Tabel Teridentifikasi (Directly Related): ~60-70 tabel dari 258 tabel database.
+Tanggal Dokumentasi: 2026-02-03
+Sumber: Database OpenSID (Live Connection) & setting_modul table.

@@ -1,34 +1,11 @@
 import AdminLayout from '@/layouts/admin/AdminLayout';
 import { motion } from 'framer-motion';
 import { Plus, Search, Edit, Trash2, Eye } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
 
 export default function Artikel() {
-    const articles = [
-        {
-            id: 1,
-            title: 'Pengumuman Gotong Royong',
-            category: 'Pengumuman',
-            status: 'published',
-            date: '2026-01-25',
-            views: 234,
-        },
-        {
-            id: 2,
-            title: 'Kegiatan Posyandu Balita',
-            category: 'Berita',
-            status: 'published',
-            date: '2026-01-23',
-            views: 156,
-        },
-        {
-            id: 3,
-            title: 'Rapat Koordinasi RT/RW',
-            category: 'Agenda',
-            status: 'draft',
-            date: '2026-01-20',
-            views: 89,
-        },
-    ];
+    const { articles } = usePage().props as any;
+    const list = articles?.data ?? articles ?? [];
 
     return (
         <AdminLayout title="Artikel" currentRoute="/admin/artikel">
@@ -103,7 +80,7 @@ export default function Artikel() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                        {articles.map((article, index) => (
+                        {list.map((article, index) => (
                             <motion.tr
                                 key={article.id}
                                 initial={{ opacity: 0, y: 10 }}
@@ -118,7 +95,7 @@ export default function Artikel() {
                                 </td>
                                 <td className="px-6 py-4">
                                     <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
-                                        {article.category}
+                                        {article.category ?? article.category_id ?? '-'}
                                     </span>
                                 </td>
                                 <td className="px-6 py-4">
